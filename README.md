@@ -49,12 +49,12 @@ resource "docker_container" "nginx" {
 
 ```
 
-![alt text](https://github.com/PeterFumelli/sdvps-materials/blob/main/img/settings_1.png)
+![alt text](https://github.com/PeterFumelli/terraform-intro/blob/master/img/docker-ps.png)
 
 * Замените имя docker-контейнера в блоке кода на `hello_world`. Объясните, в чём может быть опасность применения ключа `-auto-approve`
   * Ответ: Terraform не спрашивает подтверждения перед применением изменений. Удобен при тестах/демонстрациях, чтобы не тратить время на подтверждения
 
-![alt text](https://github.com/PeterFumelli/sdvps-materials/blob/main/img/settings_1.png)
+![alt text](https://github.com/PeterFumelli/terraform-intro/blob/master/img/docker-ps2.png)
 
 * Уничтожьте созданные ресурсы с помощью terraform. Приложите содержимое файла `terraform.tfstate`
   * Ответ:
