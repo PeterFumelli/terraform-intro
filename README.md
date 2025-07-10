@@ -52,11 +52,13 @@ resource "docker_container" "nginx" {
 ![alt text](https://github.com/PeterFumelli/terraform-intro/blob/master/img/docker-ps.png)
 
 * Замените имя docker-контейнера в блоке кода на `hello_world`. Объясните, в чём может быть опасность применения ключа `-auto-approve`
+
   * Ответ: Terraform не спрашивает подтверждения перед применением изменений. Удобен при тестах/демонстрациях, чтобы не тратить время на подтверждения
 
 ![alt text](https://github.com/PeterFumelli/terraform-intro/blob/master/img/docker-ps2.png)
 
 * Уничтожьте созданные ресурсы с помощью terraform. Приложите содержимое файла `terraform.tfstate`
+
   * Ответ:
 
 ```tf
@@ -72,4 +74,5 @@ resource "docker_container" "nginx" {
 ```
 
 * Объясните, почему при этом не был удалён docker-образ `nginx:latest`
+
   * Ответ: в docker_image указано `keep_locally = true` “If true, then the image will remain on the local system after Terraform destroys the resource.”
