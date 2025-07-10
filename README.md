@@ -76,3 +76,59 @@ resource "docker_container" "nginx" {
 * Объясните, почему при этом не был удалён docker-образ `nginx:latest`
 
   * Ответ: в docker_image указано `keep_locally = true` “If true, then the image will remain on the local system after Terraform destroys the resource.”
+
+### Задание 2
+
+```tf
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0.1"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.5"
+    }
+  }
+  required_version = ">= 1.8.4"
+}
+
+provider "docker" {
+  host = "ssh://pfa@84.201.174.214"
+}
+
+resource "random_password" "root" {
+  length  = 16
+  special = false
+}
+
+resource "random_password" "user" {
+  length  = 16
+  special = false
+}
+
+resource "docker_image" "mysql" {
+  name         = "mysql:8"
+  keep_locally = true
+}
+
+resource "docker_container" "mysql" {
+  name  = "mysql_${random_password.root.result}"
+  image = docker_image.mysql.image_id
+
+  env = [
+    "MYSQL_ROOT_PASSWORD=${random_password.root.result}",
+    "MYSQL_DATABASE=wordpress",
+    "MYSQL_USER=wordpress",
+    "MYSQL_PASSWORD=${random_password.user.result}",
+    "MYSQL_ROOT_HOST=%"
+  ]
+
+  ports {
+    internal = 3306
+    external = 3306
+    ip       = "127.0.0.1"
+  }
+}
+```
